@@ -24,10 +24,11 @@
                 <input type="submit" value="Gravar">
             </form>
             <h3>Listar Notícias</h3>
-            <table>
+            <table class="table table-hover">
                 <tr>
                     <th>Título</th>
                     <th>Texto</th>
+                    <th colspan="2">Ações</th>
                 </tr>
                 <% for(var n=0;n<dados.length;n++){ %>
                     <tr>
@@ -37,6 +38,8 @@
                         <td>
                             <%=dados[n].texto%>
                         </td>
+                        <td>Alterar</td>
+                        <td><a href="/mygrid_excluir?id=<%=dados[n]._id%>">Excluir</a></td>
                     </tr>
                     <% } %>
             </table>
