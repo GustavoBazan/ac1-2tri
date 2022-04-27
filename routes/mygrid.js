@@ -40,11 +40,21 @@ module.exports = (app)=>{
         var id = req.query.id
         //procurar o documento especifico
         var procurar = await modelo.findOne({_id:id})
-        console.log(procurar)
         //abrir a view mygrid_excluir e enviar a json do documento
         res.render('mygrid_excluir.ejs',{dados:procurar})
 
     })
+    //listar o documento para o alterar
+    app.get('/mygrid_alterar',async(req,res)=>{
+        //recuperar a id da barra de endereço
+        var id = req.query.id
+        //procurar o documento especifico
+        var procurar = await modelo.findOne({_id:id})
+        //abrir a view mygrid_alterar e enviar a json do documento
+        res.render('mygrid_alterar.ejs',{dados:procurar})
+
+    })
+
     //excluir documento da coleção atual
     app.get('/excluir_mygrid',async(req,res)=>{
         //recuperand o id da barra de endereços
