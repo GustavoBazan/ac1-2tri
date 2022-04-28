@@ -16,16 +16,17 @@
         <main>
             <h1><a href="/admin"><i class="fas fa-backspace"></i></a> Notícias - MyGrid</h1>
             <h3>Alterar Notícia</h3>
-            <form action="" method="post">
+            <form action="/alterar_mygrid?id=<%=dados._id%>" method="post">
                 <label for="titulo">Título:</label>
                 <input type="text" name="titulo" id="titulo" value="<%=dados.titulo%>"><br>
                 <label for="titulo">Id:</label>
                 <input type="text" name="id" id="titulo" value="<%=dados._id%>" disabled><br>
                 <label for="texto">Texto:</label>
                 <textarea name="texto" id="texto" cols="30" rows="10"><%=dados.texto%></textarea><br>
-            </form>
             <button onclick="window.location.href='/mygrid'" class="btn btn-outline-warning">Cancelar</button>
             <button onclick="window.location.href='/alterar_mygrid?id=<%=dados._id%>'" class="btn btn-outline-info">Alterar</button>
+            </form>
+
         </main>
     </div>
 </body>

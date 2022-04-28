@@ -44,6 +44,8 @@ module.exports = (app)=>{
         res.render('mygrid_excluir.ejs',{dados:procurar})
 
     })
+
+
     //listar o documento para o alterar
     app.get('/mygrid_alterar',async(req,res)=>{
         //recuperar a id da barra de endereço
@@ -54,6 +56,7 @@ module.exports = (app)=>{
         res.render('mygrid_alterar.ejs',{dados:procurar})
 
     })
+ 
 
     //excluir documento da coleção atual
     app.get('/excluir_mygrid',async(req,res)=>{
@@ -65,4 +68,20 @@ module.exports = (app)=>{
         res.redirect('/mygrid')
 
     })
+
+    //alterar documento da coleção atual
+    app.post('/alterar_mygrid',async(req,res)=>{
+            //recuperando o id da barra de endereços
+            var id = req.query.id
+            //recuperar as informações digitadas
+            var dados = req.body
+            //alterando o documento da coleção
+            var excluir = await modelo.findOneAndUpdate(
+                {_id:id},
+                {titulo:dados.titulo,
+                texto:dados.texto})
+            //voltar para a página mygrid
+            res.redirect('/mygrid')
+    
+        })
 }
