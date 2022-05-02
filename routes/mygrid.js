@@ -9,7 +9,7 @@ module.exports = (app)=>{
         //conectar com o database
         conexao()
         //buscar todos os documentos da colecao mygrid
-        modelo.find()
+        modelo.find().sort({_id:-1})
         .then((modelo)=>{
             res.render('mygrid.ejs',{dados:modelo})
         })
