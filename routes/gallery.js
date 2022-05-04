@@ -18,7 +18,7 @@ module.exports = (app) => {
 
     //importar as configurações do upload
     var upload = require('../config/upload')
-        //fazer o upload da imagem na pasta de destino
+    //fazer o upload da imagem na pasta de destino
     app.post('/gallery', (req, res) => {
 
         //executar o upload da imagem
@@ -38,9 +38,40 @@ module.exports = (app) => {
                     }).save()
                     //apos o upload voltar para o formulario
                 res.redirect('/gallery')
-
             }
         })
-
+    })
+         //visualizar a imagem que será alterada
+         app.get('/alterar_gallery',async(req,res)=>{
+            //recuperar o id da barra de endereço
+            var id = req.query.id
+            //procurar um documento com o id
+            var procurar = await gallery.findOne({_id:id})
+            //exibir a imagem localizada
+            res.render('gallery_alterar.ejs',{dados:procurar})
+        })
+        //alterar a imagem selecionada
+        app.post('/alterar_gallery', (req, res) => {
+        //executar o upload da imagem
+        upload(req, res, async(err) => {
+            if (err instanceof multer.MulterError) {
+                res.render('erros.ejs',{erro:"Arquivo maior que o limite!"})
+                //res.send('Arquivo maior que o limite!')
+            } else if (err) {
+                res.render('erros.ejs',{erro:"Tipo de arquivo inválido"})
+                //res.send("Tipo de arquivo inválido")
+            } else {
+                //conectar com o databaase
+                conexao()
+                //gravar o nome do arquivo na collection gallery
+                var arquivo = await gallery.findOneAndUpdate(
+                    {_id:req.query.id},
+                    {
+                        arquivo: req.file.filename
+                    })
+                //apos o upload voltar para o formulario
+                res.redirect('/gallery')
+            }
+        })
     })
 }
