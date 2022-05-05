@@ -10,9 +10,9 @@ module.exports = (app) => {
     app.get('/gallery', async(req, res) => {
         //conectar com o banco de dados
         conexao()
-            //buscar os documentos gravados na coleção gallery
+        //buscar os documentos gravados na coleção gallery
         var documentos = await gallery.find()
-            //enviar os documentos para a página ejs
+        //enviar os documentos para a página ejs
         res.render('gallery.ejs', { resultado: documentos })
     })
 
@@ -32,11 +32,11 @@ module.exports = (app) => {
             } else {
                 //conectar com o databaase
                 conexao()
-                    //gravar o nome do arquivo na collection gallery
+                //gravar o nome do arquivo na collection gallery
                 var arquivo = await new gallery({
                         arquivo: req.file.filename
                     }).save()
-                    //apos o upload voltar para o formulario
+                //apos o upload voltar para o formulario
                 res.redirect('/gallery')
             }
         })
@@ -66,9 +66,8 @@ module.exports = (app) => {
                 //gravar o nome do arquivo na collection gallery
                 var arquivo = await gallery.findOneAndUpdate(
                     {_id:req.query.id},
-                    {
-                        arquivo: req.file.filename
-                    })
+                    {arquivo: req.file.filename}
+                    )
                 //apos o upload voltar para o formulario
                 res.redirect('/gallery')
             }
